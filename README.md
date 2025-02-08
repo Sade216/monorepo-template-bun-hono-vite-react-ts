@@ -1,15 +1,55 @@
-# p_sph
+# Typescript project template Bun + Hono + Vite + React.
+
+### About:
+##### Frontend: Vite | React | React Router
+##### Backend: Hono | MongoDB | Mongoose
+
+***
 
 To install dependencies:
 
-```bash
+```
 bun install
 ```
 
-To run:
+## Server
 
-```bash
-bun run index.ts
+To run:
+```
+bun start
+```
+Dev mode:
+```
+bun dev
 ```
 
-This project was created using `bun init` in bun v1.2.1. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## Frontend
+
+Go to front folder:
+```
+cd ./frotend/
+```
+
+To run:
+```
+bun start
+```
+
+Dev mode:
+```
+bun dev
+```
+
+Build(server need static files):
+```
+bun run build
+```
+
+You'll need to **setup DB connection** in ***.env*** file (in the root directory):
+```
+URL_DATABASE='your_postgres_database_url'
+```
+
+***
+
+This project was created using `bun init` in bun v1.2.0. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
