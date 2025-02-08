@@ -5,40 +5,38 @@ import { serveStatic } from 'hono/bun'
 
 import mongoose from 'mongoose'
 
-import { newsRouter } from './src/routes/newsRouter'
+import { testRouter } from './src/routes/testRouter'
 
 
 //Настройки
 const app = new Hono()
-    .use("*", logger())
-    .get('*', serveStatic({ root:'././frontend/dist'}))
-    .get('*', serveStatic({ path:'././frontend/dist/index.html'}))
+app.use("*", logger())
 
 //Routes
 const apiRoutes = app.basePath('/api')
-    .route('/posts', newsRouter)
+    .get('/', (c) => {return c.redirect('/api/test')})
+    .route('/test', testRouter)
 
-
+//Получение статики с фронта
+app.get('*', serveStatic({ root:'././frontend/dist'}))
+app.get('*', serveStatic({ path:'././frontend/dist/index.html'}))
 
 //Запуск сервера
 const server = Bun.serve({
     port: process.env.PORT || 3000,
     fetch: app.fetch
 })
-console.log(`Сервер запущен по адресу -> http://localhost:${server.port} \n \nApi -> http://localhost:${server.port}/api \n`);
+
+console.log(`Сервер запущен по адресу -> ${process.env.SERVER_URL}:${server.port}/api`);
 
 //Запуск базы данных
 async function StartDB () {
     if(process.env.URL_DATABASE){
         try{
-            return await mongoose.connect(process.env.URL_DATABASE).then(
-                () => {
-                    console.log(`База данных запущена`);
-                }
-            )
+            return await mongoose.connect(process.env.URL_DATABASE).then(() => console.log(`База данных запущена`))
         }
         catch (err){
-            return console.log('Ошибка базыданных -', err)
+            return console.log('Ошибка подключения к базе данных -\n', err)
         }
     } 
     else return console.log('Env строка базы данных не найдена...')
