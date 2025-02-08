@@ -1,8 +1,6 @@
-# Typescript project template Bun + Hono + Vite + React.
+# Typescript project template.
 
-### About:
-##### Frontend: Vite | React | React Router
-##### Backend: Hono | MongoDB | Mongoose
+### Bun + Hono + Vite + React + MongoDB:
 
 ***
 
